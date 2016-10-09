@@ -5,7 +5,7 @@ ENV JAVA_HOME              /usr/lib/jvm/java-8-openjdk-amd64
 ENV JAVA_OPTS              ""
 ENV PATH                   $PATH:$JAVA_HOME/bin
 
-COPY ngproject-api-0.1.0.jar /app/ngproject-api-0.1.0.jar
+COPY build/libs/ngproject-api-0.1.0.jar /app/ngproject-api-0.1.0.jar
 
 WORKDIR /app
 EXPOSE 8080
