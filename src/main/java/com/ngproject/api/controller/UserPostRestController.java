@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,8 +29,14 @@ public class UserPostRestController {
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseStatus(code = HttpStatus.OK)
-	public Collection<Post> getPosts() {
-		return userPostService.getPosts();
+	public Collection<Post> getPosts(@RequestParam(required=false) String userId) {
+		Collection<Post> posts = null;
+		if (userId != null && !userId.isEmpty()) {
+			posts = userPostService.getUserPosts(userId);
+		} else {
+			posts = userPostService.getPosts();
+		}
+		return posts;
 	}
 	
 	@RequestMapping(value = "/{id}/comments", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

@@ -42,6 +42,21 @@ public class UserPostRestControllerTest extends ControllerTest<UserPostRestContr
 	}
 	
 	@Test
+	public void getUserPosts() throws Exception {
+		String userId = "1";
+		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/posts/?userId=" + userId).accept(MediaType.APPLICATION_JSON_UTF8))
+									 .andExpect(MockMvcResultMatchers.status().isOk())
+									 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8))
+									 .andReturn();
+		
+		MockHttpServletResponse response = mvcResult.getResponse();
+		Collection<Post> userPosts = JsonConverter.deserialize(new TypeReference<Collection<Post>>() {}, response.getContentAsString());
+		
+		Assert.assertNotNull(userPosts);
+		Assert.assertTrue(userPosts.size() > 0);
+	}
+	
+	@Test
 	public void getPostComments() throws Exception {
 		String postId = "1";
 		MvcResult mvcResult = mockMvc.perform(

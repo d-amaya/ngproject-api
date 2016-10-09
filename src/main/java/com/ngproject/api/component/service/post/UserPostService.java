@@ -25,6 +25,11 @@ public class UserPostService implements IUserPostService {
 	}
 
 	@Override
+	public Collection<Post> getUserPosts(String userId) {
+		return userPostRepository.getUserPosts(userId);
+	}
+
+	@Override
 	public Collection<Comment> getPostComments(String postId) {
 		return userPostRepository.getPostComments(postId);
 	}

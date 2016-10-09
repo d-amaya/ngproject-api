@@ -25,6 +25,11 @@ public class UserPostRepository implements IUserPostRepository {
 	}
 
 	@Override
+	public Collection<Post> getUserPosts(String userId) {
+		return userPostDao.getUserPosts(userId);
+	}
+
+	@Override
 	public Collection<Comment> getPostComments(String postId) {
 		return userPostDao.getPostComments(postId);
 	}

@@ -51,9 +51,9 @@ public class UserRestController {
 		return userService.createUser(user);
 	}
 	
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseStatus(code = HttpStatus.OK)
-	public void updateUser(@PathVariable String id, @RequestBody User user) {
+	public String updateUser(@PathVariable String id, @RequestBody User user) {
 		validateUserUpdate(user);
 		User currentUser = userService.getUser(id);
 		if (currentUser == null) {
@@ -65,17 +65,19 @@ public class UserRestController {
 		currentUser.setPhone(user.getPhone());
 		currentUser.setAddress(user.getAddress());
 		
-		userService.createUser(user);
+		boolean success = userService.updateUser(user);
+		return "{\"success\": \""+ success + "\"}";
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseStatus(code = HttpStatus.OK)
-	public void deleteUser(@PathVariable String id) {
+	public String deleteUser(@PathVariable String id) {
 		User currentUser = userService.getUser(id);
 		if (currentUser == null) {
 			throw new NotFoundException("The user does not exist.");
 		}
-		userService.deleteUser(id);
+		boolean success = userService.deleteUser(id);
+		return "{\"success\": \""+ success + "\"}";
 	}
 	
 	private void validateUserCreation(User user) {

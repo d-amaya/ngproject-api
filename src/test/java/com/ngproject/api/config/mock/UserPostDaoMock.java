@@ -16,6 +16,11 @@ public class UserPostDaoMock implements IUserPostDao {
 	}
 
 	@Override
+	public Collection<Post> getUserPosts(String userId) {
+		return Arrays.asList(createUser1Post1Mock(), createUser1Post2Mock());
+	}
+
+	@Override
 	public Collection<Comment> getPostComments(String postId) {
 		Collection<Comment> comments = null;
 		switch (postId) {

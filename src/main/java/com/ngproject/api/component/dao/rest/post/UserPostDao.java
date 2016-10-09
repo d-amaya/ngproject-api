@@ -29,6 +29,15 @@ public class UserPostDao extends ClientRestDao implements IUserPostDao {
 	}
 
 	@Override
+	public Collection<Post> getUserPosts(String userId) {
+		ResponseEntity<String> response = get(POST_SERVICE_URL + "/" + userId);
+		if (response == null) {
+			return new ArrayList<Post>();
+		}
+		return JsonConverter.deserialize(new TypeReference<ArrayList<Post>>() {}, response.getBody());
+	}
+
+	@Override
 	public Collection<Comment> getPostComments(String postId) {
 		ResponseEntity<String> response = get(String.format(COMMENT_SERVICE_URL, postId));
 		if (response == null) {

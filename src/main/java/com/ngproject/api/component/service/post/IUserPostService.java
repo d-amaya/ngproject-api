@@ -8,5 +8,6 @@ import com.ngproject.api.dto.Post;
 public interface IUserPostService {
 	
 	public Collection<Post> getPosts();
+	public Collection<Post> getUserPosts(String userId);
 	public Collection<Comment> getPostComments(String postId);
 }
