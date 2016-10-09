@@ -30,7 +30,7 @@ public class UserPostDao extends ClientRestDao implements IUserPostDao {
 
 	@Override
 	public Collection<Post> getUserPosts(String userId) {
-		ResponseEntity<String> response = get(POST_SERVICE_URL + "/" + userId);
+		ResponseEntity<String> response = get(POST_SERVICE_URL + "?userId=" + userId);
 		if (response == null) {
 			return new ArrayList<Post>();
 		}
